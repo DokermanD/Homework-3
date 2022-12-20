@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
+using static Homework_3.NotSolutionException;
 
 namespace Homework_3
 {
@@ -53,6 +56,8 @@ namespace Homework_3
             Console.WriteLine($" Дискриминант = {discriminant}");
             //Для Примера
             //Console.WriteLine(String.Format(" Дискриминант = {0}", discriminant));
+           
+
             Solution();
 
             //Методы ---------------------------------------------------------------------------//
@@ -83,7 +88,7 @@ namespace Homework_3
                             break;
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex )
                 {
                     Console.WriteLine(ex.Message + "\nЗначение должно быть целым числом, вы ввели что-то другое!");
                     Console.WriteLine();
@@ -121,15 +126,20 @@ namespace Homework_3
                 }
                 catch (NotSolutionException ex)
                 {
-                    Console.BackgroundColor = ConsoleColor.Yellow;
-                    Console.ForegroundColor= ConsoleColor.Black;
-                    Console.WriteLine(ex.Message);
-                    Console.ResetColor();
+                    FormatData(ex.Message, Severity.Warning);
                 }
                 catch (Exception)
                 {
                     Console.WriteLine("Что-то пошло не так!");
                 }
+            }
+
+            void FormatData(string message, Severity severity)
+            {
+                Console.BackgroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.WriteLine($"{message}:{severity}");
+                Console.ResetColor();
             }
 
             Console.ReadKey();
